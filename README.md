@@ -11,14 +11,16 @@ This project uses https://github.com/fleeasura123/ChatGPTToAPIv1 act as a ChatGP
 
 # HOW TO INSTALL
 
-1. RUN ```npm install```
+1. Install ChatGPT To API (https://github.com/fleeasura123/ChatGPTToAPIv1)
 
-2. RUN ```npm start```
+2. RUN ```npm install```
 
-3. Login to your ElevenLabs free account
+3. RUN ```npm start```
 
-4. Go to Speech Synthesis (https://beta.elevenlabs.io/speech-synthesis)
+4. Login to your ElevenLabs free account
 
-5. Make sure that ```Generate``` button is visible
+5. Go to Speech Synthesis (https://beta.elevenlabs.io/speech-synthesis)
 
-6. Don't minimize the app browser
+6. Make sure that ```Generate``` button is visible
+
+7. Don't minimize the app browser
