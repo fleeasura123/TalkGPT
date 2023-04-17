@@ -13,17 +13,22 @@ This project uses https://github.com/fleeasura123/ChatGPTToAPIv1 act as a ChatGP
 
 1. Install ChatGPT To API (https://github.com/fleeasura123/ChatGPTToAPIv1)
 
-2. RUN ```npm install```
+2. Install SoX
+- Windows - https://sourceforge.net/projects/sox/files/latest/download
+- MacOS - brew install sox
+- Linux - sudo apt-get install sox libsox-fmt-all
 
-3. RUN ```npm start```
+3. RUN ```npm install```
 
-4. Login to your ElevenLabs free account
+4. RUN ```npm start```
 
-5. Go to Speech Synthesis (https://beta.elevenlabs.io/speech-synthesis)
+5. Login to your ElevenLabs free account
 
-6. Make sure that ```Generate``` button is visible
+6. Go to Speech Synthesis (https://beta.elevenlabs.io/speech-synthesis)
 
-7. Don't minimize the app browser
+7. Make sure that ```Generate``` button is visible
+
+8. Don't minimize the app browser
 
 # HOW TO USE
 
