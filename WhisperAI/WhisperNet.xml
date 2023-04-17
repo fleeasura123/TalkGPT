@@ -1,0 +1,998 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WhisperNet</name>
+    </assembly>
+    <members>
+        <member name="T:Whisper.CaptureDeviceId">
+            <summary>Identifiers for an audio capture device</summary>
+        </member>
+        <member name="F:Whisper.CaptureDeviceId.displayName">
+            <summary>The display name is suitable for showing to the user, but might not be unique.</summary>
+        </member>
+        <member name="F:Whisper.CaptureDeviceId.endpoint">
+            <summary>Endpoint ID for an audio capture device.<br/>
+            It uniquely identifies the device on the system, but is not a readable string.</summary>
+        </member>
+        <member name="M:Whisper.CaptureDeviceId.ToString">
+            <summary>Returns a String which represents the object instance</summary>
+        </member>
+        <member name="T:Whisper.eCaptureStatus">
+            <summary>Status of the voice capture</summary>
+        </member>
+        <member name="F:Whisper.eCaptureStatus.None">
+            <summary>Doing nothing</summary>
+        </member>
+        <member name="F:Whisper.eCaptureStatus.Listening">
+            <summary>Capturing the audio</summary>
+        </member>
+        <member name="F:Whisper.eCaptureStatus.Voice">
+            <summary>A voice is detected in the captured audio, recording</summary>
+        </member>
+        <member name="F:Whisper.eCaptureStatus.Transcribing">
+            <summary>Transcribing a recorded piece of the audio</summary>
+        </member>
+        <member name="F:Whisper.eCaptureStatus.Stalled">
+            <summary>The computer is unable to transcribe the audio quickly enough,<br/>
+            and the capture is dropping the incoming audio samples.</summary>
+        </member>
+        <member name="T:Whisper.eGpuModelFlags">
+            <summary>
+            <para type="synopsis">These flags affect compute shaders performance (which ones are faster depends on GPU model),<br/>
+            and VRAM memory usage (UseReshapedMatMul needs slightly more VRAM).</para>
+            </summary>
+        </member>
+        <member name="F:Whisper.eGpuModelFlags.None">
+            <summary>Equivalent to <c>Wave32 | NoReshapedMatMul</c> on Intel and nVidia GPUs,<br/>
+            and <c>Wave64 | UseReshapedMatMul</c> on AMD GPUs</summary>
+        </member>
+        <member name="F:Whisper.eGpuModelFlags.Wave32">
+            <summary>Use Wave32 version of compute shaders even on AMD GPUs</summary>
+            <remarks>Incompatible with <see cref="F:Whisper.eGpuModelFlags.Wave64" /></remarks>
+        </member>
+        <member name="F:Whisper.eGpuModelFlags.Wave64">
+            <summary>Use Wave64 version of compute shaders even on nVidia and Intel GPUs</summary>
+            <remarks>Incompatible with <see cref="F:Whisper.eGpuModelFlags.Wave32" /></remarks>
+        </member>
+        <member name="F:Whisper.eGpuModelFlags.NoReshapedMatMul">
+            <summary>Do not use reshaped matrix multiplication shaders on AMD GPUs</summary>
+            <remarks>Incompatible with <see cref="F:Whisper.eGpuModelFlags.UseReshapedMatMul" /></remarks>
+        </member>
+        <member name="F:Whisper.eGpuModelFlags.UseReshapedMatMul">
+            <summary>Use reshaped matrix multiplication shaders even on nVidia and Intel GPUs</summary>
+            <remarks>Incompatible with <see cref="F:Whisper.eGpuModelFlags.NoReshapedMatMul" /></remarks>
+        </member>
+        <member name="F:Whisper.eGpuModelFlags.Cloneable">
+            <summary>Create GPU tensors in a way which allows sharing across D3D devices</summary>
+        </member>
+        <member name="T:Whisper.eLanguage">
+            <summary>Supported languages</summary>
+            <remarks>The values of this enum are zero-padded ASCII strings.<br/>
+            It seems OpenAI tried to implement ISO 639-1, but they used the version of the standard from 1988.</remarks>
+        </member>
+        <member name="F:Whisper.eLanguage.Afrikaans">
+            <summary>Afrikaans</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Albanian">
+            <summary>Albanian</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Amharic">
+            <summary>Amharic</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Arabic">
+            <summary>Arabic</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Armenian">
+            <summary>Armenian</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Assamese">
+            <summary>Assamese</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Azerbaijani">
+            <summary>Azerbaijani</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Bashkir">
+            <summary>Bashkir</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Basque">
+            <summary>Basque</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Belarusian">
+            <summary>Belarusian</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Bengali">
+            <summary>Bengali</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Bosnian">
+            <summary>Bosnian</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Breton">
+            <summary>Breton</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Bulgarian">
+            <summary>Bulgarian</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Catalan">
+            <summary>Catalan</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Chinese">
+            <summary>Chinese</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Croatian">
+            <summary>Croatian</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Czech">
+            <summary>Czech</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Danish">
+            <summary>Danish</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Dutch">
+            <summary>Dutch</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.English">
+            <summary>English</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Estonian">
+            <summary>Estonian</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Faroese">
+            <summary>Faroese</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Finnish">
+            <summary>Finnish</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.French">
+            <summary>French</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Galician">
+            <summary>Galician</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Georgian">
+            <summary>Georgian</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.German">
+            <summary>German</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Greek">
+            <summary>Greek</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Gujarati">
+            <summary>Gujarati</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.HaitianCreole">
+            <summary>Haitian Creole</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Hausa">
+            <summary>Hausa</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Hawaiian">
+            <summary>Hawaiian</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Hebrew">
+            <summary>Hebrew</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Hindi">
+            <summary>Hindi</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Hungarian">
+            <summary>Hungarian</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Icelandic">
+            <summary>Icelandic</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Indonesian">
+            <summary>Indonesian</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Italian">
+            <summary>Italian</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Japanese">
+            <summary>Japanese</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Javanese">
+            <summary>Javanese</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Kannada">
+            <summary>Kannada</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Kazakh">
+            <summary>Kazakh</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Khmer">
+            <summary>Khmer</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Korean">
+            <summary>Korean</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Lao">
+            <summary>Lao</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Latin">
+            <summary>Latin</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Latvian">
+            <summary>Latvian</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Lingala">
+            <summary>Lingala</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Lithuanian">
+            <summary>Lithuanian</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Luxembourgish">
+            <summary>Luxembourgish</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Macedonian">
+            <summary>Macedonian</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Malagasy">
+            <summary>Malagasy</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Malay">
+            <summary>Malay</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Malayalam">
+            <summary>Malayalam</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Maltese">
+            <summary>Maltese</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Maori">
+            <summary>Maori</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Marathi">
+            <summary>Marathi</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Mongolian">
+            <summary>Mongolian</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Myanmar">
+            <summary>Myanmar</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Nepali">
+            <summary>Nepali</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Norwegian">
+            <summary>Norwegian</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Nynorsk">
+            <summary>Nynorsk</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Occitan">
+            <summary>Occitan</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Pashto">
+            <summary>Pashto</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Persian">
+            <summary>Persian</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Polish">
+            <summary>Polish</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Portuguese">
+            <summary>Portuguese</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Punjabi">
+            <summary>Punjabi</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Romanian">
+            <summary>Romanian</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Russian">
+            <summary>Russian</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Sanskrit">
+            <summary>Sanskrit</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Serbian">
+            <summary>Serbian</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Shona">
+            <summary>Shona</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Sindhi">
+            <summary>Sindhi</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Sinhala">
+            <summary>Sinhala</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Slovak">
+            <summary>Slovak</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Slovenian">
+            <summary>Slovenian</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Somali">
+            <summary>Somali</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Spanish">
+            <summary>Spanish</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Sundanese">
+            <summary>Sundanese</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Swahili">
+            <summary>Swahili</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Swedish">
+            <summary>Swedish</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Tagalog">
+            <summary>Tagalog</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Tajik">
+            <summary>Tajik</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Tamil">
+            <summary>Tamil</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Tatar">
+            <summary>Tatar</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Telugu">
+            <summary>Telugu</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Thai">
+            <summary>Thai</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Tibetan">
+            <summary>Tibetan</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Turkish">
+            <summary>Turkish</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Turkmen">
+            <summary>Turkmen</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Ukrainian">
+            <summary>Ukrainian</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Urdu">
+            <summary>Urdu</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Uzbek">
+            <summary>Uzbek</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Vietnamese">
+            <summary>Vietnamese</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Welsh">
+            <summary>Welsh</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Yiddish">
+            <summary>Yiddish</summary>
+        </member>
+        <member name="F:Whisper.eLanguage.Yoruba">
+            <summary>Yoruba</summary>
+        </member>
+        <member name="T:Whisper.eLogLevel">
+            <summary>Message log level</summary>
+        </member>
+        <member name="F:Whisper.eLogLevel.Error">
+            <summary>Error message</summary>
+        </member>
+        <member name="F:Whisper.eLogLevel.Warning">
+            <summary>Warning message</summary>
+        </member>
+        <member name="F:Whisper.eLogLevel.Info">
+            <summary>Informational message</summary>
+        </member>
+        <member name="F:Whisper.eLogLevel.Debug">
+            <summary>Debug message</summary>
+        </member>
+        <member name="T:Whisper.pfnLogMessage">
+            <summary>A delegate to receive log messages from the library</summary>
+        </member>
+        <member name="T:Whisper.eLoggerFlags">
+            <summary>Log destination flags</summary>
+        </member>
+        <member name="F:Whisper.eLoggerFlags.None">
+            <summary>No special flags</summary>
+        </member>
+        <member name="F:Whisper.eLoggerFlags.UseStandardError">
+            <summary>In addition to calling the delegate, print messaged to standard error</summary>
+        </member>
+        <member name="F:Whisper.eLoggerFlags.SkipFormatMessage">
+            <summary>Don’t format error codes into messages</summary>
+            <remarks>It’s recommended to use this flag in .NET.<br/>
+            The standard library already formats these messages automatically, as needed.</remarks>
+        </member>
+        <member name="T:Whisper.eModelImplementation">
+            <summary>Implementation value for the <see cref="M:Whisper.Library.loadModel(System.String,Whisper.eGpuModelFlags,System.String,Whisper.eModelImplementation)" /> factory function</summary>
+        </member>
+        <member name="F:Whisper.eModelImplementation.GPU">
+            <summary>GPGPU implementation based on Direct3D 11.0 compute shaders</summary>
+        </member>
+        <member name="F:Whisper.eModelImplementation.Hybrid">
+            <summary>A hybrid implementation which uses DirectCompute for encode, and decodes on CPU</summary>
+            <remarks>
+            <para>The build of the native DLL included into this nuget package doesn’t implement this version.<br/>
+            To enable, edit <c>stdafx.h</c> in Whisper project, change the value of <c>BUILD_HYBRID_VERSION</c> macro from zero to one, and build.</para>
+            <para>This implementation requires a CPU with AVX1, FMA3, F16C and BMI1 instruction set extensions.</para>
+            </remarks>
+        </member>
+        <member name="F:Whisper.eModelImplementation.Reference">
+            <summary>A reference implementation which uses the original GGML CPU-running code.</summary>
+            <remarks>
+            <para>The build of the native DLL included into this nuget package doesn’t implement this version either.<br/>
+            To enable, edit <c>stdafx.h</c> in Whisper project, change the value of <c>BUILD_BOTH_VERSIONS</c> macro from zero to one, and build the project.</para>
+            <para>This implementation requires a CPU with AVX1, FMA3, and F16C instruction set extensions.</para>
+            </remarks>
+        </member>
+        <member name="T:Whisper.eResultFlags">
+            <summary>Flags for <see cref="M:Whisper.Context.results(Whisper.eResultFlags)" /> method</summary>
+        </member>
+        <member name="F:Whisper.eResultFlags.None">
+            <summary>No flags</summary>
+        </member>
+        <member name="F:Whisper.eResultFlags.Tokens">
+            <summary>Return individual tokens in addition to the segments</summary>
+        </member>
+        <member name="F:Whisper.eResultFlags.Timestamps">
+            <summary>Return timestamps</summary>
+        </member>
+        <member name="F:Whisper.eResultFlags.NewObject">
+            <summary>Create a new COM object for the results.</summary>
+            <remarks>Without this flag, the context returns a pointer to the COM object stored in the context.<br/>
+            The content of that object is replaced every time you call <see cref="M:Whisper.Internal.iContext.getResults(Whisper.eResultFlags)" /> method.</remarks>
+        </member>
+        <member name="T:Whisper.eSpeakerChannel">
+            <summary>Output value for iContext.detectSpeaker method</summary>
+        </member>
+        <member name="F:Whisper.eSpeakerChannel.Unsure">
+            <summary>Unable to detect</summary>
+        </member>
+        <member name="F:Whisper.eSpeakerChannel.Left">
+            <summary>The speech was mostly in the left channel</summary>
+        </member>
+        <member name="F:Whisper.eSpeakerChannel.Right">
+            <summary>The speech was mostly in the right channel</summary>
+        </member>
+        <member name="F:Whisper.eSpeakerChannel.NoStereoData">
+            <summary>The audio only has 1 channel</summary>
+        </member>
+        <member name="T:Whisper.iAudioBuffer">
+            <summary>A buffer with a chunk of audio.</summary>
+            <remarks>Note the interface supports both marshaling directions.<br/>
+            You can implement this interface in C#, to supply PCM audio data to the native code.</remarks>
+            <seealso href="https://gist.github.com/Const-me/082c8d96eb10b76058c5dd9c68b5bfe1" />
+        </member>
+        <member name="M:Whisper.iAudioBuffer.countSamples">
+            <summary>Count of samples in the buffer, equal to ( length in seconds ) * 16000</summary>
+        </member>
+        <member name="M:Whisper.iAudioBuffer.getPcmMono">
+            <summary>Unmanaged pointer to the internal buffer with single-channel <c>float</c> PCM samples @ 16 kHz sample rate.</summary>
+            <remarks>If you implementing this interface in C# and your audio data is on the managed heap, use <see cref="T:System.Runtime.InteropServices.GCHandle" /> to make sure it doesn't move.<br/>
+            Or better yet, move the data to unmanaged buffer allocated with <see cref="M:System.Runtime.InteropServices.Marshal.AllocHGlobal(System.Int32)" /> or <see cref="M:System.Runtime.InteropServices.Marshal.AllocCoTaskMem(System.Int32)" /> method.</remarks>
+        </member>
+        <member name="M:Whisper.iAudioBuffer.getPcmStereo">
+            <summary>Unmanaged pointer to the internal buffer with interleaved stereo <c>float</c> PCM samples @ 16 kHz sample rate.</summary>
+            <remarks>When the buffer doesn’t have stereo data, the method should return <see cref="F:System.IntPtr.Zero" />.</remarks>
+        </member>
+        <member name="M:Whisper.iAudioBuffer.getTime(System.TimeSpan@)">
+            <summary>Start time of the buffer, relative to the start of the media.</summary>
+            <remarks>The value is used to produce timestamps in <see cref="F:Whisper.sSegment.time" /> and <see cref="F:Whisper.sToken.time" /> fields.</remarks>
+        </member>
+        <member name="T:Whisper.iAudioReader">
+            <summary>Audio stream reader object</summary>
+            <remarks>The implementation is forward-only, and these objects aren’t reusable.<br/>
+            To read an audio file multiple time, dispose this object, and create a new one from the same source file.</remarks>
+        </member>
+        <member name="M:Whisper.iAudioReader.getDuration">
+            <summary>Get duration of the media file</summary>
+        </member>
+        <member name="T:Whisper.iAudioCapture">
+            <summary>Audio capture reader object</summary>
+            <remarks>This interface has no public methods callable from C#.<br/>
+            It’s only here to pass data between different functions implemented in C++.</remarks>
+        </member>
+        <member name="T:Whisper.iMediaFoundation">
+            <summary>Exposes a small subset of MS Media Foundation framework.</summary>
+            <remarks>That framework is a part of Windows OS, since Vista.</remarks>
+            <seealso href="https://learn.microsoft.com/en-us/windows/win32/medfound/microsoft-media-foundation-sdk" />
+        </member>
+        <member name="M:Whisper.iMediaFoundation.loadAudioFile(System.String,System.Boolean)">
+            <summary>Decode complete audio file into a new memory buffer.</summary>
+            <returns>
+            The method asks MF to resample and convert audio into the suitable type for the Whisper model.<br/>
+            If the path is a video file, the method will decode the first audio track.
+            </returns>
+        </member>
+        <member name="M:Whisper.iMediaFoundation.openAudioFile(System.String,System.Boolean)">
+            <summary>Create a reader to stream the audio file from disk</summary>
+            <returns>
+            The method returns an object which can be used to decode the audio file incrementally.<br/>
+            For long audio files, this saves both memory (no need for large uncompressed PCM buffer), and time (decode and transcribe run concurrently on different CPU threads).<br/>
+            If the path is a video file, the implementation will use the first audio track.
+            </returns>
+        </member>
+        <member name="M:Whisper.iMediaFoundation.loadAudioFileData(System.IntPtr,System.Int64,System.Boolean)">
+            <summary>Create a reader to decode audio file in memory</summary>
+            <remarks>The method first copies the content into another internal buffer, then creates a streaming decoder</remarks>
+        </member>
+        <member name="M:Whisper.iMediaFoundation.listCaptureDevices(Whisper.Internal.pfnFoundCaptureDevices,System.IntPtr)">
+            <summary>List capture devices</summary>
+        </member>
+        <member name="M:Whisper.iMediaFoundation.openCaptureDevice(System.String,Whisper.sCaptureParams@)">
+            <summary>Open audio capture device</summary>
+        </member>
+        <member name="T:Whisper.MediaFoundationExt">
+            <summary>Extension methods for <see cref="T:Whisper.iMediaFoundation" /> interface</summary>
+        </member>
+        <member name="M:Whisper.MediaFoundationExt.loadAudioFileData(Whisper.iMediaFoundation,System.ReadOnlySpan{System.Byte},System.Boolean)">
+            <summary>Create a reader to decode audio file in memory</summary>
+            <remarks>The method first copies the content into another internal buffer, then creates a streaming decoder</remarks>
+        </member>
+        <member name="T:Whisper.pfnDecodedTokens">
+            <summary>Function pointer to receive array of tokens from <see cref="M:Whisper.iModel.tokenize(System.String,Whisper.pfnDecodedTokens,System.IntPtr)" /></summary>
+        </member>
+        <member name="T:Whisper.iModel">
+            <summary>A model in VRAM, loaded from GGML file.</summary>
+            <remarks>This object doesn't keep any mutable state, and can be safely used from multiple threads concurrently</remarks>
+        </member>
+        <member name="M:Whisper.iModel.createContextInternal">
+            <summary>Create a context to transcribe audio with this model</summary>
+            <remarks>Don't call this method, use <see cref="M:Whisper.ExtensionMethods.createContext(Whisper.iModel)" /> instead.</remarks>
+        </member>
+        <member name="M:Whisper.iModel.tokenize(System.String,Whisper.pfnDecodedTokens,System.IntPtr)">
+            <summary>Convert the provided text into tokens</summary>
+        </member>
+        <member name="M:Whisper.iModel.isMultilingual">
+            <summary>True if this model is multi-lingual</summary>
+        </member>
+        <member name="M:Whisper.iModel.getSpecialTokens">
+            <summary>Retrieve integer IDs of the special tokens defined by the model</summary>
+        </member>
+        <member name="M:Whisper.iModel.stringFromTokenInternal(System.Int32)">
+            <summary>Try to resolve integer token ID into string.</summary>
+            <remarks>Don't call this method, use <see cref="M:Whisper.ExtensionMethods.stringFromToken(Whisper.iModel,System.Int32)" /> instead.</remarks>
+        </member>
+        <member name="M:Whisper.iModel.clone">
+            <summary>Clone the model</summary>
+            <remarks>You must pass <see cref="F:Whisper.eGpuModelFlags.Cloneable" /> bit when creating this model, otherwise this method will throw an exception.</remarks>
+        </member>
+        <member name="T:Whisper.eSamplingStrategy">
+            <summary>Available sampling strategies</summary>
+        </member>
+        <member name="F:Whisper.eSamplingStrategy.Greedy">
+            <summary>Always select the most probable token</summary>
+        </member>
+        <member name="F:Whisper.eSamplingStrategy.BeamSearch">
+            <summary>TODO: not implemented yet!</summary>
+        </member>
+        <member name="T:Whisper.Parameters">
+            <summary>Transcribe parameters</summary>
+        </member>
+        <member name="F:Whisper.Parameters.strategy">
+            <summary>Sampling strategy</summary>
+        </member>
+        <member name="F:Whisper.Parameters.cpuThreads">
+            <summary>Count of CPU worker threads to use</summary>
+            <remarks>So far, the GPU model only uses CPU threads for MEL spectrograms</remarks>
+        </member>
+        <member name="F:Whisper.Parameters.offset_ms">
+            <summary>start offset in ms</summary>
+        </member>
+        <member name="F:Whisper.Parameters.duration_ms">
+            <summary>audio duration to process in ms</summary>
+        </member>
+        <member name="M:Whisper.Parameters.setFlag(Whisper.eFullParamsFlags,System.Boolean)">
+            <summary>Set or clear the specified flag in the <see cref="F:Whisper.Parameters.flags" /> field of this structure</summary>
+        </member>
+        <member name="F:Whisper.Parameters.language">
+            <summary>Language</summary>
+        </member>
+        <member name="F:Whisper.Parameters.thold_pt">
+            <summary>timestamp token probability threshold (~0.01)</summary>
+        </member>
+        <member name="F:Whisper.Parameters.thold_ptsum">
+            <summary>timestamp token sum probability threshold (~0.01)</summary>
+        </member>
+        <member name="F:Whisper.Parameters.max_len">
+            <summary>max segment length in characters</summary>
+        </member>
+        <member name="F:Whisper.Parameters.max_tokens">
+            <summary>max tokens per segment (0 = no limit)</summary>
+        </member>
+        <member name="F:Whisper.Parameters.audioContextSize">
+            <summary>overwrite the audio context size (0 = use default)</summary>
+        </member>
+        <member name="T:Whisper.eCaptureFlags">
+            <summary>Flags for the audio capture</summary>
+        </member>
+        <member name="F:Whisper.eCaptureFlags.None">
+            <summary>No special flags</summary>
+        </member>
+        <member name="F:Whisper.eCaptureFlags.Stereo">
+            <summary>When the capture device supports stereo, keep stereo PCM samples in addition to mono</summary>
+        </member>
+        <member name="T:Whisper.sCaptureParams">
+            <summary>Parameters for audio capture</summary>
+        </member>
+        <member name="F:Whisper.sCaptureParams.minDuration">
+            <summary>Minimum transcribe duration in seconds</summary>
+        </member>
+        <member name="F:Whisper.sCaptureParams.maxDuration">
+            <summary>Maximum transcribe duration in seconds</summary>
+        </member>
+        <member name="F:Whisper.sCaptureParams.dropStartSilence">
+            <summary></summary>
+        </member>
+        <member name="F:Whisper.sCaptureParams.pauseDuration">
+            <summary></summary>
+        </member>
+        <member name="F:Whisper.sCaptureParams.flags">
+            <summary>Flags for the audio capture</summary>
+        </member>
+        <member name="M:Whisper.sCaptureParams.#ctor(System.Boolean)">
+            <summary>Initialize the structure with some reasonable default values</summary>
+        </member>
+        <member name="T:Whisper.SpecialTokens">
+            <summary>Special tokens defined in the model</summary>
+        </member>
+        <member name="F:Whisper.SpecialTokens.TranscriptionEnd">
+            <summary>The end of a transcription</summary>
+        </member>
+        <member name="F:Whisper.SpecialTokens.TranscriptionStart">
+            <summary>Start of a transcription</summary>
+        </member>
+        <member name="F:Whisper.SpecialTokens.PreviousWord">
+            <summary>Represents the previous word in the transcription. It is used to help the model predict the current word based on the context of the words that came before it.</summary>
+        </member>
+        <member name="F:Whisper.SpecialTokens.SentenceStart">
+            <summary>Start of a sentence</summary>
+        </member>
+        <member name="F:Whisper.SpecialTokens.Not">
+            <summary>Represents the word "not" in the transcription</summary>
+        </member>
+        <member name="F:Whisper.SpecialTokens.TranscriptionBegin">
+            <summary>New transcription</summary>
+        </member>
+        <member name="F:Whisper.SpecialTokens.TaskTranslate">
+            <summary>token_translate</summary>
+        </member>
+        <member name="F:Whisper.SpecialTokens.TaskTranscribe">
+            <summary>token_transcribe</summary>
+        </member>
+        <member name="T:Whisper.Callbacks">
+            <summary>Implement this abstract class to receive callbacks from the native code</summary>
+        </member>
+        <member name="M:Whisper.Callbacks.onEncoderBegin(Whisper.Context)">
+            <summary>The callback is called before every encoder run.</summary>
+            <remarks>If it returns false, the processing is aborted.</remarks>
+        </member>
+        <member name="M:Whisper.Callbacks.onNewSegment(Whisper.Context,System.Int32)">
+            <summary>This callback is called on each new segment</summary>
+        </member>
+        <member name="T:Whisper.CaptureCallbacks">
+            <summary>Implement this abstract class to provide callbacks for audio capture method</summary>
+        </member>
+        <member name="M:Whisper.CaptureCallbacks.shouldCancel(Whisper.Context)">
+            <summary>Override this method to support cancellation</summary>
+        </member>
+        <member name="M:Whisper.CaptureCallbacks.captureStatusChanged(Whisper.Context,Whisper.eCaptureStatus)">
+            <summary>Override this method to get notified about status changes</summary>
+        </member>
+        <member name="T:Whisper.Context">
+            <summary>Stateful context, contains methods to transcribe audio</summary>
+        </member>
+        <member name="P:Whisper.Context.parameters">
+            <summary>Adjustable parameters</summary>
+        </member>
+        <member name="M:Whisper.Context.runFull(Whisper.iAudioBuffer,Whisper.Callbacks,System.ReadOnlySpan{System.Int32})">
+            <summary>Run the entire model: PCM -> log mel spectrogram -> encoder -> decoder -> text</summary>
+        </member>
+        <member name="M:Whisper.Context.runFull(Whisper.iAudioBuffer,Whisper.Callbacks)">
+            <summary>Run the entire model: PCM -> log mel spectrogram -> encoder -> decoder -> text</summary>
+        </member>
+        <member name="M:Whisper.Context.runFull(Whisper.iAudioBuffer,Whisper.Callbacks,System.Int32[])">
+            <summary>Run the entire model: PCM -> log mel spectrogram -> encoder -> decoder -> text</summary>
+        </member>
+        <member name="M:Whisper.Context.runFull(Whisper.iAudioReader,Whisper.Callbacks,System.Action{System.Double},System.ReadOnlySpan{System.Int32})">
+            <summary>Run the entire model, streaming audio from the provided reader object</summary>
+        </member>
+        <member name="M:Whisper.Context.runFull(Whisper.iAudioReader,System.Action{System.Double},Whisper.Callbacks)">
+            <summary>Run the entire model, streaming audio from the provided reader object</summary>
+        </member>
+        <member name="M:Whisper.Context.runFull(Whisper.iAudioReader,Whisper.Callbacks,System.Action{System.Double},System.Int32[])">
+            <summary>Run the entire model, streaming audio from the provided reader object</summary>
+        </member>
+        <member name="M:Whisper.Context.results(Whisper.eResultFlags)">
+            <summary>Get text results out of the context</summary>
+        </member>
+        <member name="M:Whisper.Context.timingsPrint">
+            <summary>Print timing data</summary>
+        </member>
+        <member name="M:Whisper.Context.timingsReset">
+            <summary>Reset timing data</summary>
+        </member>
+        <member name="M:Whisper.Context.runCapture(Whisper.iAudioCapture,Whisper.Callbacks,Whisper.CaptureCallbacks)">
+            <summary>Continuously process audio from microphone or a similar capture device</summary>
+            <remarks>It’s recommended to call this method on a background thread.</remarks>
+        </member>
+        <member name="M:Whisper.Context.detectSpeaker(Whisper.sTimeInterval)">
+            <summary>Try to detect speaker by comparing channels of the stereo PCM data</summary>
+            <remarks>
+            <para>The feature requires stereo PCM data.<br/>Pass <c>stereo=true</c> to <see cref="M:Whisper.iMediaFoundation.loadAudioFile(System.String,System.Boolean)" /> or <see cref="M:Whisper.iMediaFoundation.openAudioFile(System.String,System.Boolean)"/> methods,<br/>
+            or <see cref="F:Whisper.eCaptureFlags.Stereo" /> to <see cref="M:Whisper.iMediaFoundation.openCaptureDevice(System.String,Whisper.sCaptureParams@)" /> method.</para>
+            <para>It seems to work fine with <a href="https://www.bluemic.com/en-us/products/yeti/">Blue Yeti</a> microphone,
+            after switched the microphone to Stereo pattern.<br/> With recorded sounds however, the performance varies depending on the recording.</para>
+            </remarks>
+        </member>
+        <member name="T:Whisper.ExtensionMethods">
+            <summary>Extension methods of these COM interfaces</summary>
+        </member>
+        <member name="M:Whisper.ExtensionMethods.createContext(Whisper.iModel)">
+            <summary>Create a context to transcribe audio with this model</summary>
+        </member>
+        <member name="M:Whisper.ExtensionMethods.getCode(Whisper.eLanguage)">
+            <summary>Convert language into a short ID string, like <c>"en"</c></summary>
+        </member>
+        <member name="M:Whisper.ExtensionMethods.stringFromToken(Whisper.iModel,System.Int32)">
+            <summary>Resolve integer token ID into string.</summary>
+            <remarks>If the token ID was not found in the model, the method returns null without raising exceptions.</remarks>
+        </member>
+        <member name="M:Whisper.ExtensionMethods.listCaptureDevices(Whisper.iMediaFoundation)">
+            <summary>List capture devices</summary>
+        </member>
+        <member name="M:Whisper.ExtensionMethods.openCaptureDevice(Whisper.iMediaFoundation,Whisper.CaptureDeviceId@,System.Nullable{Whisper.sCaptureParams}@)">
+            <summary>Open audio capture device</summary>
+        </member>
+        <member name="M:Whisper.ExtensionMethods.tokenize(Whisper.iModel,System.String)">
+            <summary>Convert the provided text into tokens</summary>
+        </member>
+        <member name="T:Whisper.Internal.iContext">
+            <summary>Stateful context, contains methods to transcribe audio</summary>
+        </member>
+        <member name="M:Whisper.Internal.iContext.runFull(Whisper.Internals.sFullParams@,Whisper.iAudioBuffer)">
+            <summary>Run the entire model: PCM -> log mel spectrogram -> encoder -> decoder -> text</summary>
+        </member>
+        <member name="M:Whisper.Internal.iContext.runStreamed(Whisper.Internals.sFullParams@,Whisper.Internal.sProgressSink@,Whisper.iAudioReader)">
+            <summary>Run the entire model, streaming audio from the provided reader object</summary>
+        </member>
+        <member name="M:Whisper.Internal.iContext.runCapture(Whisper.Internals.sFullParams@,Whisper.Internal.sCaptureCallbacks@,Whisper.iAudioCapture)">
+            <summary>Continuously process audio from microphone or a similar capture device</summary>
+        </member>
+        <member name="M:Whisper.Internal.iContext.getResults(Whisper.eResultFlags)">
+            <summary>Get text results out of the context</summary>
+        </member>
+        <member name="M:Whisper.Internal.iContext.detectSpeaker(Whisper.sTimeInterval@)">
+            <summary>Try to detect speaker by comparing channels of the stereo PCM data</summary>
+        </member>
+        <member name="M:Whisper.Internal.iContext.getModel">
+            <summary>Get the model which was used to create this context</summary>
+        </member>
+        <member name="M:Whisper.Internal.iContext.fullDefaultParams(Whisper.eSamplingStrategy)">
+            <summary>Full the default parameters of the model, for the specified sampling strategy</summary>
+        </member>
+        <member name="M:Whisper.Internal.iContext.timingsPrint">
+            <summary>Print timing data</summary>
+        </member>
+        <member name="M:Whisper.Internal.iContext.timingsReset">
+            <summary>Reset timing data</summary>
+        </member>
+        <member name="T:Whisper.Internal.sTranscribeLength">
+            <summary>Size of the buffers owned by the <see cref="T:Whisper.Internal.iTranscribeResult" /> object</summary>
+        </member>
+        <member name="F:Whisper.Internal.sTranscribeLength.countSegments">
+            <summary>Count of segments</summary>
+        </member>
+        <member name="F:Whisper.Internal.sTranscribeLength.countTokens">
+            <summary>Total count of tokens, for all segments combined</summary>
+        </member>
+        <member name="T:Whisper.Internal.iTranscribeResult">
+            <summary>Output data from the model</summary>
+        </member>
+        <member name="M:Whisper.Internal.iTranscribeResult.getSize">
+            <summary>Get size of the buffers</summary>
+        </member>
+        <member name="M:Whisper.Internal.iTranscribeResult.getSegments">
+            <summary>Pointer to segment data, a vector of <see cref="T:Whisper.sSegment" /> structures</summary>
+        </member>
+        <member name="M:Whisper.Internal.iTranscribeResult.getTokens">
+            <summary>Pointer to tokens data, a vector of <see cref="T:Whisper.sToken" /> structures</summary>
+        </member>
+        <member name="T:Whisper.Internal.NativeLogger">
+            <summary>Utility class to supply logging function pointer to the C++ library,<br/>
+            and provide custom calling conventions to ComLight runtime to convert error messages printed in C++ into .NET exception messages</summary>
+        </member>
+        <member name="M:Whisper.Internal.NativeLogger.prologue">
+            <summary>Called internally by ComLight runtime</summary>
+        </member>
+        <member name="M:Whisper.Internal.NativeLogger.throwException(System.Int32)">
+            <summary>Epilogue implementation for unsuccessful status codes</summary>
+        </member>
+        <member name="M:Whisper.Internal.NativeLogger.throwForHR(System.Int32)">
+            <summary>Called internally by ComLight runtime</summary>
+        </member>
+        <member name="M:Whisper.Internal.NativeLogger.throwAndReturnBool(System.Int32)">
+            <summary>Called internally by ComLight runtime</summary>
+        </member>
+        <member name="T:Whisper.Internal.pfnShouldCancel">
+            <summary>Unmanaged code calls this to check for cancellation</summary>
+            <remarks>Return 0 to proceed, or 1 to stop the process and return from Context.runCapture method</remarks>
+        </member>
+        <member name="T:Whisper.Internal.pfnCaptureStatus">
+            <summary>Unmanaged code calls this to notify about the status</summary>
+        </member>
+        <member name="T:Whisper.Internal.sCaptureCallbacks">
+            <summary>Capture callbacks for unmanaged code</summary>
+        </member>
+        <member name="F:Whisper.Internal.sCaptureCallbacks.shouldCancel">
+            <summary>Cancellation function pointer</summary>
+        </member>
+        <member name="F:Whisper.Internal.sCaptureCallbacks.captureStatus">
+            <summary>Capture status function pointer</summary>
+        </member>
+        <member name="F:Whisper.Internal.sCaptureCallbacks.pv">
+            <summary>Context pointer, only needed for C++ compatibility</summary>
+        </member>
+        <member name="T:Whisper.Internal.sCaptureDevice">
+            <summary>Identifiers for an audio capture device</summary>
+        </member>
+        <member name="P:Whisper.Internal.sCaptureDevice.displayName">
+            <summary>The display name is suitable for showing to the user, but might not be unique.</summary>
+        </member>
+        <member name="P:Whisper.Internal.sCaptureDevice.endpoint">
+            <summary>Endpoint ID for an audio capture device.<br/>
+            It uniquely identifies the device on the system, but is not a readable string.</summary>
+        </member>
+        <member name="T:Whisper.Internal.pfnFoundCaptureDevices">
+            <summary>Function pointer to consume a list of audio capture device IDs</summary>
+        </member>
+        <member name="T:Whisper.Internal.pfnLoadProgress">
+            <summary>Function pointer to report model loading progress</summary>
+        </member>
+        <member name="T:Whisper.Internal.pfnCancel">
+            <summary>Function pointer to implement cooperative cancellation</summary>
+        </member>
+        <member name="T:Whisper.Internal.sLoadModelCallbacks">
+            <summary>Callback functions for loading models</summary>
+        </member>
+        <member name="F:Whisper.Internal.sLoadModelCallbacks.progress">
+            <summary>Function pointer to report model loading progress</summary>
+        </member>
+        <member name="F:Whisper.Internal.sLoadModelCallbacks.cancel">
+            <summary>Function pointer to implement cooperative cancellation</summary>
+        </member>
+        <member name="M:Whisper.Internal.sLoadModelCallbacks.#ctor(System.Threading.CancellationToken,System.Action{System.Double})">
+            <summary>Wrap idiomatic C# things into these low-level C callbacks</summary>
+        </member>
+        <member name="T:Whisper.Internal.pfnReportProgress">
+            <summary>A callback to get notified about the progress</summary>
+        </member>
+        <member name="T:Whisper.Internal.sProgressSink">
+            <summary>C structure with a progress reporting function pointer</summary>
+        </member>
+        <member name="F:Whisper.Internal.sProgressSink.pfn">
+            <summary>A callback to get notified about the progress</summary>
+        </member>
+        <member name="F:Whisper.Internal.sProgressSink.pv">
+            <summary>Last parameter to the callback</summary>
+        </member>
+        <member name="T:Whisper.sTimeInterval">
+            <summary>Start and end times of a segment or token</summary>
+            <remarks>The times are relative to the start of the media</remarks>
+        </member>
+        <member name="F:Whisper.sTimeInterval.begin">
+            <summary>Start time</summary>
+        </member>
+        <member name="F:Whisper.sTimeInterval.end">
+            <summary>End time</summary>
+        </member>
+        <member name="T:Whisper.sSegment">
+            <summary>Segment data</summary>
+        </member>
+        <member name="P:Whisper.sSegment.text">
+            <summary>Segment text</summary>
+        </member>
+        <member name="F:Whisper.sSegment.time">
+            <summary>Start and end times of the segment</summary>
+        </member>
+        <member name="F:Whisper.sSegment.firstToken">
+            <summary>Slice of the tokens</summary>
+        </member>
+        <member name="F:Whisper.sSegment.countTokens">
+            <summary>Slice of the tokens</summary>
+        </member>
+        <member name="T:Whisper.eTokenFlags">
+            <summary>Token flags</summary>
+        </member>
+        <member name="F:Whisper.eTokenFlags.Special">
+            <summary>The token is special</summary>
+        </member>
+        <member name="T:Whisper.sToken">
+            <summary>Token data</summary>
+        </member>
+        <member name="P:Whisper.sToken.text">
+            <summary>Token text</summary>
+        </member>
+        <member name="F:Whisper.sToken.time">
+            <summary>Start and end times of the token</summary>
+        </member>
+        <member name="F:Whisper.sToken.probability">
+            <summary>Probability of the token</summary>
+        </member>
+        <member name="F:Whisper.sToken.probabilityTimestamp">
+            <summary>Probability of the timestamp token</summary>
+        </member>
+        <member name="F:Whisper.sToken.ptsum">
+            <summary>Sum of probabilities of all timestamp tokens</summary>
+        </member>
+        <member name="F:Whisper.sToken.vlen">
+            <summary>Voice length of the token</summary>
+        </member>
+        <member name="F:Whisper.sToken.id">
+            <summary>Token id</summary>
+        </member>
+        <member name="F:Whisper.sToken.flags">
+            <summary>Token flags</summary>
+        </member>
+        <member name="M:Whisper.sToken.hasFlag(Whisper.eTokenFlags)">
+            <summary>True if the token flags has the specified bit set</summary>
+        </member>
+        <member name="T:Whisper.TranscribeResult">
+            <summary>Output data from the model</summary>
+        </member>
+        <member name="F:Whisper.TranscribeResult.segments">
+            <summary>Segments in the results</summary>
+        </member>
+        <member name="F:Whisper.TranscribeResult.tokens">
+            <summary>Tokens in the results, for all segments</summary>
+        </member>
+        <member name="M:Whisper.TranscribeResult.getTokens(Whisper.sSegment@)">
+            <summary>Get tokens for the specified segment</summary>
+        </member>
+        <member name="T:Whisper.Internals.pfnNewSegment">
+            <summary>This callback is called on each new segment</summary>
+        </member>
+        <member name="T:Whisper.Internals.pfnEncoderBegin">
+            <summary>The callback is called before every encoder run. If it returns S_FALSE, the processing is aborted.</summary>
+        </member>
+        <member name="T:Whisper.Internals.sFullParams">
+            <summary>Transcribe parameters</summary>
+        </member>
+        <member name="F:Whisper.Internals.sFullParams.newSegmentCallback">
+            <summary>This callback is called on each new segment</summary>
+        </member>
+        <member name="F:Whisper.Internals.sFullParams.newSegmentCallbackData">
+            <summary>Parameter for the above, not needed in C#</summary>
+        </member>
+        <member name="F:Whisper.Internals.sFullParams.encoderBeginCallback">
+            <summary>The callback is called before every encoder run. If it returns false, the processing is aborted</summary>
+        </member>
+        <member name="F:Whisper.Internals.sFullParams.encoderBeginCallbackData">
+            <summary>Parameter for the above, not needed in C#</summary>
+        </member>
+        <member name="T:Whisper.Library">
+            <summary>Factory methods implemented by the C++ DLL</summary>
+        </member>
+        <member name="M:Whisper.Library.loadModel(System.String,Whisper.eGpuModelFlags,System.String,Whisper.eModelImplementation)">
+            <summary>Load Whisper model from GGML file on disk</summary>
+            <remarks>Models are large, depending on user’s disk speed this might take a while, and this function blocks the calling thread.<br/>
+            Consider <see cref="M:Whisper.Library.loadModelAsync(System.String,System.Threading.CancellationToken,Whisper.eGpuModelFlags,System.String,System.Action{System.Double},Whisper.eModelImplementation)" /> instead.</remarks>
+            <seealso href="https://huggingface.co/datasets/ggerganov/whisper.cpp" />
+        </member>
+        <member name="M:Whisper.Library.loadModelAsync(System.String,System.Threading.CancellationToken,Whisper.eGpuModelFlags,System.String,System.Action{System.Double},Whisper.eModelImplementation)">
+            <summary>Load Whisper model on a background thread, with optional progress reporting and cancellation</summary>
+        </member>
+        <member name="M:Whisper.Library.initMediaFoundation">
+            <summary>Initialize Media Foundation runtime</summary>
+        </member>
+        <member name="M:Whisper.Library.languageFromCode(System.String)">
+            <summary>Try to resolve language code string like <c>"en"</c>, <c>"pl"</c> or <c>"uk"</c> into the strongly-typed enum.</summary>
+            <remarks>The function is case-sensitive, <c>"EN"</c> or <c>"UK"</c> gonna fail.</remarks>
+        </member>
+        <member name="M:Whisper.Library.setLogSink(Whisper.eLogLevel,Whisper.eLoggerFlags,Whisper.pfnLogMessage)">
+            <summary>Set up delegate to receive log messages from the C++ library</summary>
+        </member>
+        <member name="M:Whisper.Library.listGraphicAdapters">
+            <summary>Enumerate graphics adapters on this computer, and return their names.</summary>
+            <remarks>To manually select the GPU to use for the inference, pass one of these names to<br/>
+            <see cref="M:Whisper.Library.loadModel(System.String,Whisper.eGpuModelFlags,System.String,Whisper.eModelImplementation)" /> or <br/>
+            <see cref="M:Whisper.Library.loadModelAsync(System.String,System.Threading.CancellationToken,Whisper.eGpuModelFlags,System.String,System.Action{System.Double},Whisper.eModelImplementation)" /> factory function.</remarks>
+        </member>
+    </members>
+</doc>

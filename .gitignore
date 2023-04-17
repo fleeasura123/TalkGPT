@@ -1,0 +1,6 @@
+node_modules/
+ggml-medium.bin
+ggml-large.bin
+tmp/
+output.txt
+output.wav
