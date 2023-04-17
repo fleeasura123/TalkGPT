@@ -1,5 +1,5 @@
 # TALK GPT
-Just a fun project to talk to ChatGPT with voice using your country or native language.
+Just a fun project to talk to ChatGPT with voice using your country or native language and ChatGPT will also reply with voice (english).
 
 This project uses https://github.com/fleeasura123/ChatGPTToAPIv1 act as a ChatGPT API
 
