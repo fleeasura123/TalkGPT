@@ -24,3 +24,9 @@ This project uses https://github.com/fleeasura123/ChatGPTToAPIv1 act as a ChatGP
 6. Make sure that ```Generate``` button is visible
 
 7. Don't minimize the app browser
+
+# HOW TO USE
+
+* Press ```F5``` to start recording, wait after ```I'm listening``` voice ends before talking.
+* Press ```F5``` again to stop recording
+* Wait for a response
